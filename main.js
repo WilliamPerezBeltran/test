@@ -1,42 +1,19 @@
 const app = require("electron").app;
 const path = require("path");
-const os = require("os");
+var fs = require('fs');
 
-const process = require('process'); 
-console.log("process-----------------------------")
-// console.log(process.env); 
-console.log(process.env["APPDATA"]); 
-console.log("process-----------------------------")
+let filePathDb = path.join(`${app.getPath("userData")}`, 'db.sqlite3');
+let DBPATH = path.resolve(app.getPath("userData"), "db.sqlite3");
+if(!fs.existsSync(filePathDb)){
+	fs.writeFile(filePathDb, '', function (err) {
+		if (err) throw err;
+		console.log('File is created successfully.');
+		});
+}
+console.log(app.getPath("userData"))
+console.log(filePathDb)
 
-
-console.log('============wwwwwwwwwwwwwwwwwww==============')
-console.log(app.getPath("appData"))
-console.log('==========================')
-// to get access to db through this path
-// nano /home/user/.config/@coreui/coreui-free-react-admin-template/db.sqlite3
-
-// const DBPATH = path.resolve(`${__dirname}/db`, "db.sqlite3");
-const DBPATH = path.resolve(app.getPath("userData"), "db.sqlite3");
-
-console.log("***********************"); // "Windows_NT"
-console.log(os.type().toLowerCase()); // "Windows_NT"
-console.log(os.release()); // "10.0.14393"
-console.log(os.platform()); // "win32"
-console.log("***********************"); // "Windows_NT"
-
-
-
-
-
-module.exports = {
+ module.exports = {
   DBPATH,
 };
-
-
-// const app = require("electron").app;
-// app.getPath("appData")
-
-// y sale esto:
-// /home/user/.config
-
 
